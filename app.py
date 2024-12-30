@@ -5,7 +5,7 @@ import urllib.parse
 app = Flask(__name__)
 
 # Path to the music directory
-MUSIC_DIR = '/media/gamedisk/Users/alp/Music'
+MUSIC_DIR = '(the directory here)'
 
 # Function to get all supported audio files in the music directory
 def get_audio_files():
