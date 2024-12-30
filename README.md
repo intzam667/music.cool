@@ -1,4 +1,5 @@
-# music.cool
+![2024-12-30_06-23](https://github.com/user-attachments/assets/a42006af-84a5-4b88-8be5-62440fdcb628)
+
 A self-hosted music client using Flask servers
 
 - Comes with colorschemes pre-built
