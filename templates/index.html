@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntZam's Music667</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--fg-color);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid var(--button-bg);
+            border-radius: 4px;
+            background-color: var(--input-bg);
+            color: var(--fg-color);
+            width: 80%;
+            max-width: 400px;
+            transition: border-color 0.3s;
+        }
+        .search-bar:focus {
+            border-color: var(--highlight-color);
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            background-color: var(--button-bg);
+            border: 2px solid var(--button-bg);
+            padding: 15px 25px;
+            color: var(--button-text);
+            font-size: 18px;
+            margin: 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .status {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .song-list {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .song-item {
+            margin: 5px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        .song-item:hover {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-color);
+        }
+
+        /* Default Gruvbox theme */
+        :root {
+            --bg-color: #282828;
+            --fg-color: #ebdbb2;
+            --button-bg: #3c3836;
+            --button-text: #ebdbb2;
+            --button-hover-bg: #504945;
+            --button-hover-text: #f8f8f2;
+            --highlight-color: #d79921;
+            --highlight-bg: #3c3836;
+            --input-bg: #3c3836;
+        }
+
+        /* Other theme: Solarized Light */
+        .solarized-light {
+            --bg-color: #fdf6e3;
+            --fg-color: #657b83;
+            --button-bg: #93a1a1;
+            --button-text: #657b83;
+            --button-hover-bg: #839496;
+            --button-hover-text: #fdf6e3;
+            --highlight-color: #268bd2;
+            --highlight-bg: #93a1a1;
+            --input-bg: #eee8d5;
+        }
+
+        /* Other theme: Monokai */
+        .monokai {
+            --bg-color: #272822;
+            --fg-color: #f8f8f2;
+            --button-bg: #44475a;
+            --button-text: #f8f8f2;
+            --button-hover-bg: #bd93f9;
+            --button-hover-text: #f8f8f2;
+            --highlight-color: #f1fa8c;
+            --highlight-bg: #44475a;
+            --input-bg: #3e3b36;
+        }
+
+        /* One Dark theme (from Atom) */
+        .one-dark {
+            --bg-color: #282c34;
+            --fg-color: #abb2bf;
+            --button-bg: #3e4451;
+            --button-text: #abb2bf;
+            --button-hover-bg: #61afef;
+            --button-hover-text: #282c34;
+            --highlight-color: #e06c75;
+            --highlight-bg: #3e4451;
+            --input-bg: #2c313c;
+        }
+
+        /* Nord theme */
+        .nord {
+            --bg-color: #2e3440;
+            --fg-color: #d8dee9;
+            --button-bg: #4c566a;
+            --button-text: #d8dee9;
+            --button-hover-bg: #81a1c1;
+            --button-hover-text: #2e3440;
+            --highlight-color: #88c0d0;
+            --highlight-bg: #4c566a;
+            --input-bg: #3b4252;
+        }
+
+        /* Dracula theme */
+        .dracula {
+            --bg-color: #282a36;
+            --fg-color: #f8f8f2;
+            --button-bg: #44475a;
+            --button-text: #f8f8f2;
+            --button-hover-bg: #bd93f9;
+            --button-hover-text: #f8f8f2;
+            --highlight-color: #ff79c6;
+            --highlight-bg: #44475a;
+            --input-bg: #44475a;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>music.cool</h1>
+        <!-- Theme switcher buttons -->
+        <div>
+            <button onclick="changeTheme('gruvbox')">Gruvbox</button>
+            <button onclick="changeTheme('solarized-light')">Solarized Light</button>
+            <button onclick="changeTheme('monokai')">Monokai</button>
+            <button onclick="changeTheme('one-dark')">One Dark</button>
+            <button onclick="changeTheme('nord')">Nord</button>
+            <button onclick="changeTheme('dracula')">Dracula</button>
+        </div>
+
+        <!-- Search bar -->
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search for a song..." onkeyup="searchMusic()">
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button id="play-button" onclick="controlMusic('play')">Play</button>
+            <button id="pause-button" onclick="controlMusic('pause')">Pause</button>
+            <button id="resume-button" onclick="controlMusic('resume')">Resume</button>
+        </div>
+
+        <div id="status" class="status">Status: Stopped</div>
+
+        <!-- Song list -->
+        <div id="song-list" class="song-list">
+            <!-- Song list will appear here -->
+        </div>
+
+        <!-- Hidden Audio Player -->
+        <audio id="audio-player" style="display: none;" preload="auto"></audio>
+    </div>
+
+<script>
+    let audioPlayer = document.getElementById('audio-player');
+    let currentSong = null;
+
+    // Apply the theme stored in localStorage when the page loads
+    window.onload = function() {
+        // Get saved theme from localStorage
+        let savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            // Apply the saved theme
+            changeTheme(savedTheme);
+        }
+
+        // Fetch and display all songs
+        fetch('/music')
+            .then(response => response.json())
+            .then(data => {
+                updateSongList(data.songs);
+            });
+    };
+
+    // Save the selected theme to localStorage
+    function changeTheme(theme) {
+        document.documentElement.className = theme;
+        localStorage.setItem('theme', theme);  // Save the theme
+    }
+
+    function controlMusic(action) {
+        if (action === 'play' && currentSong) {
+            audioPlayer.src = '/music/' + currentSong;
+            audioPlayer.play();
+            document.getElementById('status').innerText = 'Status: Playing ' + currentSong;
+        } else if (action === 'pause') {
+            audioPlayer.pause();
+            document.getElementById('status').innerText = 'Status: Paused ' + currentSong;
+        } else if (action === 'resume') {
+            audioPlayer.play();
+            document.getElementById('status').innerText = 'Status: Resumed ' + currentSong;
+        }
+    }
+
+    function searchMusic() {
+        let query = document.getElementById('search-bar').value;
+        fetch('/search/' + query)
+            .then(response => response.json())
+            .then(data => {
+                updateSongList(data.songs);
+            });
+    }
+
+    function updateSongList(songs) {
+        const songListDiv = document.getElementById('song-list');
+        songListDiv.innerHTML = '';  // Clear the current list
+
+        if (songs.length === 0) {
+            songListDiv.innerHTML = '<p>No songs found</p>';
+            return;
+        }
+
+        songs.forEach(song => {
+            const songItem = document.createElement('div');
+            songItem.className = 'song-item';
+            songItem.textContent = decodeURIComponent(song);  // Decode spaces in the song name
+            songItem.onclick = () => {
+                currentSong = song;  // Only use the relative path (no full path here)
+                document.getElementById('status').innerText = 'Status: Ready to play ' + song;
+            };
+            songListDiv.appendChild(songItem);
+        });
+    }
+</script>
+</body>
+</html>
+
